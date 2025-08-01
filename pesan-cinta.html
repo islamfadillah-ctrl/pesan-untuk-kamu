@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pesan untuk Kamu ❤️</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .container {
+      display: none;
+      padding: 50px;
+      text-align: center;
+      color: #fff;
+      min-height: 100vh;
+      box-sizing: border-box;
+      animation: fadeIn 1s ease forwards;
+    }
+    #page1 {
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    }
+    #page2 {
+      background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+    }
+    #page3 {
+      background: linear-gradient(135deg, #f6d365, #fda085);
+    }
+    #page4 {
+      background: linear-gradient(135deg, #84fab0, #8fd3f4);
+    }
+    .active {
+      display: block;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      margin: 0 auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      transform: scale(0.95);
+      animation: zoomIn 0.8s ease forwards;
+      position: relative;
+      color: #333;
+    }
+    img {
+      width: 100%;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #ff69b4;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    button:hover {
+      background-color: #ff1493;
+      transform: scale(1.05);
+    }
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9em;
+      color: #eee;
+    }
+    .love {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center center / cover;
+      animation: float 3s linear infinite;
+      pointer-events: none;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes zoomIn {
+      from { transform: scale(0.95); }
+      to { transform: scale(1); }
+    }
+    @keyframes float {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-300px) scale(1.5); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<audio id="bgMusic" loop>
+  <source src="Avanti - Loving You (freetouse.com).mp3" type="audio/mpeg">
+  Browsermu tidak mendukung audio.
+</audio>
+
+<audio id="clickSound">
+  <source src="https://www.myinstants.com/media/sounds/mouse-click.mp3" type="audio/mpeg">
+</audio>
+
+<canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;pointer-events:none;z-index:999"></canvas>
+
+<!-- Halaman 1 -->
+<div class="container active" id="page1">
+  <div class="card">
+    <h1>Hai Cintaku 💖</h1>
+    <p>Hari ini aku cuma mau bilang...</p>
+    <h2>AKU SAYANG BANGET SAMA KAMU 🥰</h2>
+    <p>Kamu itu sumber semangat aku setiap hari.</p>
+    <button onclick="handleNext('page1', 'page2')">Lanjut ➡️</button>
+  </div>
+</div>
+
+<!-- Halaman 2 -->
+<div class="container" id="page2">
+  <div class="card">
+    <h2>Untuk sayangku cintaaa❤️❤️❤️ 🌟</h2>
+    <p>Kamu hebat, cantik, tapi kadang ambekan sih anaknya bu rum ini wkwkwkwk.<br>
+    intinya jangan pernah raguin diri sendiri ya cantiknya akuuuu❤️❤️!</p>
+    <p>Aku akan selalu mendukung semua langkahmu ❤️❤️❤️❤️</p>
+    <button onclick="handleNext('page2', 'page3')">Lanjut ➡️</button>
+  </div>
+</div>
+
+<!-- Halaman 3 -->
+<div class="container" id="page3">
+  <div class="card">
+    <h2>Foto Kenangan Kita 📸</h2>
+    <img src="melisa andhini.jpg" alt="Foto Kita">
+    <p>Aku seneng bisa mengabadikan beberapa momen sama kamu sayanggg💞</p>
+    <button onclick="handleNext('page3', 'page4')">Lanjut ➡️</button>
+  </div>
+</div>
+
+<!-- Halaman 4 -->
+<div class="container" id="page4">
+  <div class="card">
+    <h2>Akhir kata dan halaman 🌈</h2>
+    <p>Aku bersyukur bisa punya kamu dalam hidupku.<br>
+    Semoga hubungan kita terus langgeng dan bahagia 😘</p>
+    <p>Aku cinta kamu, sekarang dan selamanya ❤️</p>
+    <button onclick="handleNext('page4', 'page1')">Ulang dari Awal 🔁</button>
+  </div>
+  <div class="footer">
+    Dibuat dengan penuh cinta oleh aku <br>Mochammad Islam Fadillah Pacar Melisa Andhini 🌹
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+  const sound = document.getElementById("clickSound");
+  const bgMusic = document.getElementById("bgMusic");
+
+  function handleNext(currentId, nextId) {
+    const current = document.getElementById(currentId);
+    const next = document.getElementById(nextId);
+
+    current.classList.remove('active');
+    next.classList.add('active');
+
+    next.style.animation = 'none';
+    next.offsetHeight;
+    next.style.animation = null;
+
+    if (bgMusic.paused) {
+      bgMusic.play().catch(e => console.log("Autoplay prevented:", e));
+    }
+
+    sound.currentTime = 0;
+    sound.play();
+
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+
+    for (let i = 0; i < 10; i++) {
+      const heart = document.createElement('div');
+      heart.className = 'love';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.top = '100vh';
+      heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 3000);
+    }
+  }
+</script>
+
+</body>
+</html>
